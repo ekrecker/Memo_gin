@@ -1,1 +1,4 @@
-# Memo_gin
+# vue-memo-app
+
+### Memo
+あらかじめ `db/my.cnf` はつくらないといけない
