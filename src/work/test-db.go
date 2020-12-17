@@ -67,7 +67,7 @@ func main() {
  
   var memo = Memo {
     Date: "2020/11/18",
-    Content: "test test",
+    Content: "テスト",
     Status: "To Do",
   }
 	
