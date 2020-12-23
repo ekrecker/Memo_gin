@@ -52,7 +52,7 @@ func deleteMemo(registerMemo *Memo) {
   defer db.Close()
 }
 
-func findAllMemo() []Memo {
+func findAllMemos() []Memo {
   db := getGormConnect()
   var memos []Memo
 
