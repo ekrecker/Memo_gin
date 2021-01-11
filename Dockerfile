@@ -1,10 +1,14 @@
-FROM golang:1.15-buster
+FROM golang:1.15-alpine
 
-RUN apt-get update && apt-get install git 
+RUN apk update && \
+    apk upgrade && \
+    apk add git gcc
 
-RUN mkdir /go/src/work
-WORKDIR /go/src/
+RUN mkdir -p /go/src/work
 
-RUN go get github.com/gin-gonic/gin
-RUN go get github.com/jinzhu/gorm
-RUN go get github.com/go-sql-driver/mysql
+COPY ./work/ /go/src/work
+WORKDIR /go/src/work
+
+RUN go get -u github.com/gin-gonic/gin \
+    && go get github.com/jinzhu/gorm \
+    && go get github.com/go-sql-driver/mysql 
