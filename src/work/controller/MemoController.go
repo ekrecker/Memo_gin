@@ -5,11 +5,12 @@ import (
 
   "github.com/gin-gonic/gin"
 
-  db "../models/db"
+  entity "work/models/entity"
+  db "work/models/db"
 )
 
 func FetchAllMemos(c *gin.Context) {
-  resultMemos := db.findAllMemos()
+  resultMemos := db.FindAllMemos()
 
   c.JSON(200, resultMemos)
 }
@@ -17,21 +18,21 @@ func FetchAllMemos(c *gin.Context) {
 func AddMemo(c *gin.Context) {
   date := c.PostForm("memoDate")
   content := c.PostForm("memoContent")
-  state := c.postForm("memoState")
+  status := c.PostForm("memoStatus")
 
-  var memo = Memo {
-    Date: "2020/1/8",
-    Content: "update lists",
-    Status: "To Do",
+  var memo = entity.Memo{
+    Date: date,
+    Content: content,
+    Status: status,
   }
 
-  db.insertMemo(&memo)
+  db.InsertMemo(&memo)
 }
 
 func DeleteMemo(c *gin.Context) {
   memoIDstr := c.PostForm("memoID")
 
-  memoID := strconv.Atoi(memoIDstr)
-
-  db.deleteMemo(memoID)
+  memoID, _ := strconv.Atoi(memoIDstr)
+  
+  db.DeleteMemo(memoID)
 }

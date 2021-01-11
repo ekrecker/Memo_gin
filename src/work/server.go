@@ -8,7 +8,7 @@ import (
   "github.com/gin-gonic/gin"
   _ "github.com/jinzhu/gorm/dialects/mysql"
 
-  controller "./controllers/"
+  controller "work/controller"
 )
 
 func main () {
@@ -27,9 +27,9 @@ func serve () {
 
   router.POST("./addMemo", controller.AddMemo)
 
-  router.POST("./deleteMemo", controller.deleteMemo)
+  router.POST("./deleteMemo", controller.DeleteMemo)
 
-  if err := router.Run(":8080"); != nil {
+  if err := router.Run(":8080"); err != nil {
     log.Fatal("server Run Failed.: ", err)
   }
 }

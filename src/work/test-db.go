@@ -64,23 +64,24 @@ func findAllMemo() []Memo {
 
 func main() {
 
- 
+  /*
   var memo = Memo {
     Date: "2020/11/18",
     Content: "テスト",
     Status: "To Do",
   }
+  */
 	
 	
-  /*
+  
   var memo = Memo {
     ID: 1,
   }
-	*/
 	
 	
-  insertMemo(&memo)
-  //deleteMemo(&memo)
+	
+  //insertMemo(&memo)
+  deleteMemo(&memo)
 
   resultMemos := findAllMemo()
 

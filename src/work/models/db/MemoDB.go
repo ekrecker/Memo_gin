@@ -4,16 +4,11 @@ import (
   "fmt"
 
   "github.com/jinzhu/gorm"
+
+  entity "work/models/entity"
 )
 
-type Memo struct {
-  ID 			  int 	  `gorm:"primary_key;not_null"`
-  Date      string 	`gorm:"type:varchar(20);not_null"`
-  Content   string 	`gorm:"type:varchar(100);not_null"`
-  Status    string  `gorm:"type:varchar(20);not_null"` 
-}
-
-func getGormConnect() *gorm.DB {
+func GetGormConnect() *gorm.DB {
   DBMS := "mysql"
   USER := "admin"
   PASS := "password"
@@ -32,30 +27,31 @@ func getGormConnect() *gorm.DB {
 
   //db.SingularTable(true)
 
-  db.AutoMigrate(&Memo{})
+  db.AutoMigrate(&entity.Memo{})
 
   fmt.Println("db connected: ", &db)
   return db
 }
 
-func insertMemo(registerMemo *Memo) {
-  db := getGormConnect()
+func InsertMemo(registerMemo *entity.Memo) {
+  db := GetGormConnect()
 
   db.Create(&registerMemo)
   defer db.Close()
 }
 
-func deleteMemo(registerMemo *Memo) {
-  db := getGormConnect()
+func DeleteMemo(memoID int) {
+  memo := []entity.Memo{}
 
-  db.Debug().Delete(&registerMemo)
+  db := GetGormConnect()
+  db.Debug().Delete(&memo, memoID)
   defer db.Close()
 }
 
-func findAllMemos() []Memo {
-  db := getGormConnect()
-  var memos []Memo
+func FindAllMemos() []entity.Memo {
+  memos := []entity.Memo{}
 
+  db := GetGormConnect()
   db.Order("ID asc").Find(&memos)
   defer db.Close()
   return memos

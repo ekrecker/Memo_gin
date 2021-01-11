@@ -1,4 +1,4 @@
-package db
+package entity
 
 type Memo struct {
   ID 			  int 	  `gorm:"primary_key;not_null"`
