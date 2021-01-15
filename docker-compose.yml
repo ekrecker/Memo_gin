@@ -18,10 +18,10 @@ services:
       MYSQL_USER: admin 
       MYSQL_PASSWORD: password
       TZ: 'Asia/Tokyo'
-    #command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - db-data:/var/lib/mysql
-      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/:/etc/mysql/conf.d/
     ports:
       - 3306:3306
 
