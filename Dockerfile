@@ -6,7 +6,7 @@ RUN apk update && \
 
 RUN mkdir -p /go/src/work
 
-COPY ./work/ /go/src/work
+COPY work/ /go/src/work
 WORKDIR /go/src/work
 
 RUN go get -u github.com/gin-gonic/gin \
