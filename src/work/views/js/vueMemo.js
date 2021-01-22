@@ -2,28 +2,38 @@ new Vue({
   el: '#app',
 
   data: {
-    memos: [
-    ],
 
-    memoDate: '',
+    memos: [],
+
+    memoDate: Date.getDate,
 
     memoContent: '',
 
     memoStatus: '',
+
+    isEntered: false
   },
+
   computed: {
     computedMemos () {
       return this.memos
     },
+
+    validate () {
+      var isEnteredMemoContent = 0 < this.memoContent.length
+      this.isEntered = isEnteredMemoContent
+      return isEnteredMemoContent
+    }
   },
 
   created: function () {
-    this.FetchAllMemos()
+    this.fetchAllMemos()
   },
+
 
   methods: {
 
-    FetchAllMemos () {
+    fetchAllMemos () {
       axios.get('/fetchAllMemos')
       .then(response => {
         if(response.status != 200) {
@@ -35,6 +45,30 @@ new Vue({
           this.memos = resultMemos
         }
       })
+    },
+
+    addMemo () {
+      const params = new URLSearchParams();
+      params.append('memoDate', this.memoDate)
+      params.append('memoContent', this.memoContent)
+      params.append('memoStatus', this.memoStatus)
+
+      axios.post('/addMemo', params)
+      .then(response => {
+        if(response.status != 200) {
+          throw new Error('Response Error')
+        }
+        else {
+          this.fetchAllMemos()
+
+          this.initInputValue()
+        }
+      })
+    },
+
+    initInputValue () {
+      this.memoContent = ''
+      this.memoStatus = ''
     }
   }
 })

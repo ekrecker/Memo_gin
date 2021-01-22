@@ -26,15 +26,17 @@
             <form>
               <div class="form-group">
                 <label class="control-label">Date:</label>
-                <input type="text" class="form-control" name='date' v-model="date" v-bind:class="{'alert-color': !validate }" value=''>
+                <input type="text" class="form-control" name='date' v-model="date" value=''>
               </div>
               <div class="form-group">
                 <label for="textarea1">Memo:</label>
-                <textarea id="textarea1" class="form-control" name='content' v-model="content" v-bind:class="{'alert-color': !validate }" value=''></textarea>
+                <textarea type="text" id="textarea1" class="form-control" name="memoContent" v-model="memoContent" v-bind:class="{'alert-color': !validate }" value=''></textarea>
               </div>
             </form>
+            <button v-on:click="addMemo" v-bind:disabled="!isEntered" type="button" class="btn btn-primary">
+              Add
+            </button>
           </div>
-          <button type="button" class="btn btn-primary">Add</button>
         </div>
       </div>
 
