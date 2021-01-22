@@ -5,13 +5,19 @@ new Vue({
 
     memos: [],
 
-    memoDate: Date.getDate,
+    memoDate: new Date(),
 
     memoContent: '',
 
     memoStatus: '',
 
-    isEntered: false
+    isEntered: false,
+
+    customFormat: 'yyyy-MM-dd'
+  },
+
+  components: {
+    'vuejs-datepicker': vuejsDatepicker
   },
 
   computed: {
@@ -23,7 +29,7 @@ new Vue({
       var isEnteredMemoContent = 0 < this.memoContent.length
       this.isEntered = isEnteredMemoContent
       return isEnteredMemoContent
-    }
+    },
   },
 
   created: function () {
@@ -69,6 +75,7 @@ new Vue({
     initInputValue () {
       this.memoContent = ''
       this.memoStatus = ''
-    }
+    },
+
   }
 })
