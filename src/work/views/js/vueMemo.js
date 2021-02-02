@@ -9,7 +9,14 @@ new Vue({
 
     memoContent: '',
 
-    memoStatus: '',
+    memoStatus: 'incomplete',
+
+    assignedMember: '',
+    optionMember: [
+      { id: 1, name: 'Mike' },
+      { id: 2, name: 'Tom' },
+      { id: 3, name: 'Ann' },
+    ],
 
     isEntered: false,
 
