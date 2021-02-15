@@ -15,7 +15,7 @@ new Vue({
     optionMember: [
       { id: 1, name: 'Mike' },
       { id: 2, name: 'Tom' },
-      { id: 3, name: 'Ann' },
+      { id: 3, name: 'Ann' }
     ],
 
     isEntered: false,
@@ -62,6 +62,7 @@ new Vue({
 
     addMemo () {
       const params = new URLSearchParams();
+      this.memoDate = moment(this.memoDate).format('YYYY-MM-DD')
       params.append('memoDate', this.memoDate)
       params.append('memoContent', this.memoContent)
       params.append('memoStatus', this.memoStatus)
