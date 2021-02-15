@@ -6,13 +6,14 @@
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- axios -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
     <!-- vuejs -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js" defer></script>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
 
     <!-- vuejs-datepicker-->
     <script src="https://unpkg.com/vuejs-datepicker"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" defer></script>
 
     <script src="/views/js/vueMemo.js" defer></script>
 
@@ -20,30 +21,47 @@
   </head>
   <body>
     <div id="app">
-      <h1>Work Memo</h1>
+      <nav class="navbar navbar-dark bg-primary mb-2">
+        <a class="navbar-brand" href="#">Work Tasks</a>
+      </nav>
       <div class="container">
-        <div class="panel panel-success">
-          <div class="panel-heading">Input Task</div>
-          <div class="panel-body">
+        <div class="card border-primary mb-3">
+          <div class="card-header">
+            <h5>Input Task</h5>
+          </div>
+          <div class="card-body">
             <form>
               <div class="form-group">
                 <label for="textarea1">Task:</label>
                 <textarea type="text" id="textarea1" class="form-control" name="memoContent" v-model="memoContent" v-bind:class="{'alert-color': !validate }" value=''></textarea>
               </div>
+
+              <div class="select-group">
+                <label for="textarea2">Assigned to: {{ assignedMember }}</label><br>
+                <select v-model="assignedMember">
+                  <option disabled value="">Please select a member</option>
+                  <option v-for="member in optionMember"
+                          v-bind:value="member.name"
+                          v-bind:key="member.id">
+                          {{ member.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="date-group">
+                <label for="textarea3">Due:</label>
+                <vuejs-datepicker v-model="memoDate" :value="memoDate" :format='customFormat'></vuejs-datepicker>
+              </div>
+
+              <div class="button-group">
+                <div class="text-right">
+                  <button v-on:click="addMemo" v-bind:disabled="!isEntered" type="button" class="btn btn-primary">
+                    Add
+                  </button>
+                </div>
+              </div>
             </form>
 
-            <select v-model="assignedMember">
-              <span>Assigned to: {{ assignedMember }}</span>
-              <option disabled value="">Please select a member</option>
-              <option v-for="member in optionMember"
-                v-bind:value="member.name"></option>
-            </select>
-
-            <span>Due:</span>
-            <vuejs-datepicker v-model="memoDate" :value="memoDate" :format='customFormat'></vuejs-datepicker>
-            <button v-on:click="addMemo" v-bind:disabled="!isEntered" type="button" class="btn btn-primary">
-              Add
-            </button>
           </div>
         </div>
       </div>
