@@ -46,7 +46,7 @@ new Vue({
 
   methods: {
 
-    fetchAllMemos () {
+    fetchAllMemos() {
       axios.get('/fetchAllMemos')
       .then(response => {
         if(response.status != 200) {
@@ -60,7 +60,7 @@ new Vue({
       })
     },
 
-    addMemo () {
+    addMemo() {
       const params = new URLSearchParams();
       this.memoDate = moment(this.memoDate).format('YYYY-MM-DD')
       params.append('memoDate', this.memoDate)
@@ -76,6 +76,21 @@ new Vue({
           this.fetchAllMemos()
 
           this.initInputValue()
+        }
+      })
+    },
+
+    deleteMemo(memo) {
+      const params = new URLSearchParams();
+      params.append('memoID', memo.id)
+
+      axios.post('/deleteMemo', params)
+      .then(response => {
+        if(response.status != 200) {
+          throw new Error('Response Error')      
+        }
+        else {
+          this.fetchAllMemos()
         }
       })
     },
