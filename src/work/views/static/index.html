@@ -67,17 +67,15 @@
       </div>
 
       <div class="memo-index">
-        <div v-for="item in computedMemos">
+        <div v-for="(item, index) in computedMemos">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
-              <h5 class="card-title">Task {{ item.id }}</h5>
+              <h5 class="card-title">Task {{ index + 1 }}</h5>
               <h6 class="card subtitle mb-2 text-muted">Until: {{ item.date }}</h6>
               <p class="content">{{ item.content }}</p>
-              <div class="text-right">
-                <button v-on:click="deleteMemo" type="button" class="btn btn-secondary btn-sm">
+                <button v-on:click="deleteMemo(item)" type="button" class="btn btn-secondary btn-sm">
                   Done 
                 </button>
-              </div>
             </div>
           </div>
         </div>
