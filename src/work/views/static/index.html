@@ -66,15 +66,20 @@
         </div>
       </div>
 
-      <div class="list">
-        <div class="listheader">
-          <p class="list-title">Memo</p>
-        </div>
-      </div>
       <div class="memo-index">
         <div v-for="item in computedMemos">
-          <p class="date">{{ item.date }}</p>
-          <p class="content">{{ item.content }}</p>
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Task {{ item.id }}</h5>
+              <h6 class="card subtitle mb-2 text-muted">Until: {{ item.date }}</h6>
+              <p class="content">{{ item.content }}</p>
+              <div class="text-right">
+                <button v-on:click="deleteMemo" type="button" class="btn btn-secondary btn-sm">
+                  Done 
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
