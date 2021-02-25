@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- vuejs -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <!-- axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
 
@@ -16,6 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" defer></script>
 
     <script src="/views/js/vueMemo.js" defer></script>
+
 
     <title>Work Memo</title>
   </head>
@@ -32,33 +34,32 @@
           <div class="card-body">
             <form>
               <div class="form-group">
-                <label for="textarea1">Task:</label>
+                <h5>Task</h5>
                 <textarea type="text" id="textarea1" class="form-control" name="memoContent" v-model="memoContent" v-bind:class="{'alert-color': !validate }" value=''></textarea>
               </div>
 
-              <div class="select-group">
-                <label for="textarea2">Assigned to: {{ assignedMember }}</label><br>
-                <select v-model="assignedMember">
-                  <option disabled value="">Please select a member</option>
-                  <option v-for="member in optionMember"
-                          v-bind:value="member.name"
-                          v-bind:key="member.id">
-                          {{ member.name }}
-                  </option>
-                </select>
-              </div>
-
-              <div class="date-group">
-                <label for="textarea3">Due:</label>
-                <vuejs-datepicker v-model="memoDate" :value="memoDate" :format='customFormat'></vuejs-datepicker>
-              </div>
-
-              <div class="button-group">
-                <div class="text-right">
-                  <button v-on:click="addMemo" v-bind:disabled="!isEntered" type="button" class="btn btn-primary">
-                    Add
-                  </button>
+              <div class="form-row">
+                <div class="form-group col-md-5">
+                  <label for=inputmember>Assigned to: {{ assignedMember }}</label>
+                  <select v-model="assignedMember" class="form-control">
+                    <option disabled value="">Please select a member</option>
+                    <option v-for="member in optionMember"
+                            v-bind:value="member.name"
+                            v-bind:key="member.id">
+                            {{ member.name }}
+                    </option>
+                  </select>
                 </div>
+                <div class="form-group col-md-4">
+                  <label for=inputDue>Due</label>
+                  <vuejs-datepicker v-model="memoDate" :value="memoDate" :format='customFormat'></vuejs-datepicker>
+                </div>
+              </div>
+
+              <div class="text-right">                  
+                <button v-on:click="addMemo" v-bind:disabled="!isEntered" type="button" class="btn btn-primary">
+                  Add
+                </button>
               </div>
             </form>
 
@@ -66,20 +67,23 @@
         </div>
       </div>
 
-      <div class="memo-index">
+      <div class="card-deck">
         <div v-for="(item, index) in computedMemos">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Task {{ index + 1 }}</h5>
               <h6 class="card subtitle mb-2 text-muted">Until: {{ item.date }}</h6>
               <p class="content">{{ item.content }}</p>
+              <div class="text-right">
                 <button v-on:click="deleteMemo(item)" type="button" class="btn btn-secondary btn-sm">
                   Done 
                 </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- bootstrap -->
