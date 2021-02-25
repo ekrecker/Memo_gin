@@ -44,8 +44,8 @@ new Vue({
   },
 
 
-  methods: {
 
+  methods: {
     fetchAllMemos() {
       axios.get('/fetchAllMemos')
       .then(response => {
